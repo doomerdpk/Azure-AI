@@ -78,13 +78,34 @@ client = TextAnalyticsClient(
 #         print(f"  Entity: {entity.text}  Category: {entity.category}  Confidence: {entity.confidence_score:.2f}")
 
 
-documents = [
-    "This is written in English.",
-    "Ceci est écrit en français.",
-    "यह हिंदी में लिखा गया है।",
-]
+# documents = [
+#     "This is written in English.",
+#     "Ceci est écrit en français.",
+#     "यह हिंदी में लिखा गया है।",
+# ]
 
-results = client.detect_language(documents)
+# results = client.detect_language(documents)
 
-for doc in results:
-    print(f"Language: {doc.primary_language.name}  ISO code: {doc.primary_language.iso6391_name}  Confidence: {doc.primary_language.confidence_score:.2f}")
+# for doc in results:
+#     print(f"Language: {doc.primary_language.name}  ISO code: {doc.primary_language.iso6391_name}  Confidence: {doc.primary_language.confidence_score:.2f}")
+
+
+raw_text = """Azure AI Language is a cloud-based service that provides natural language processing 
+    features for understanding and analyzing text. It includes capabilities such as sentiment 
+    analysis, key phrase extraction, named entity recognition, and language detection. Developers 
+    can use this service to build applications that understand human language, extract insights 
+    from unstructured text, and automate tasks like content moderation and customer feedback analysis. 
+    The service supports multiple languages and can be accessed through REST APIs or client SDKs 
+    in various programming languages. It is part of the broader Azure AI Services portfolio, which 
+    also includes vision, speech, and decision-making capabilities."""
+
+document = [" ".join(raw_text.split())]
+
+poller = client.begin_extract_summary(document)
+results = poller.result()
+
+for result in results:
+    if result.kind == "ExtractiveSummarization":
+        print("Extractive summary sentences:")
+        for sentence in result.sentences:
+            print(f"  - {sentence.text} (rank: {sentence.rank_score:.2f})")
