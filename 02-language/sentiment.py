@@ -46,11 +46,22 @@ client = TextAnalyticsClient(
 #                 print(f"    Assessment: '{assessment.text}' -> {assessment.sentiment}")
 #         print("---")
 
+# documents = [
+#     "Microsoft was founded by Bill Gates and Paul Allen in Albuquerque, New Mexico. The company is now headquartered in Redmond, Washington."
+# ]
+
+# results = client.extract_key_phrases(documents)
+
+# for doc in results:
+#     print("Key phrases:", doc.key_phrases)
+
+
 documents = [
     "Microsoft was founded by Bill Gates and Paul Allen in Albuquerque, New Mexico. The company is now headquartered in Redmond, Washington."
 ]
 
-results = client.extract_key_phrases(documents)
+results = client.recognize_entities(documents)
 
 for doc in results:
-    print("Key phrases:", doc.key_phrases)
+    for entity in doc.entities:
+        print(f"Text: {entity.text}  Category: {entity.category}  Subcategory: {entity.subcategory}  Confidence: {entity.confidence_score:.2f}")
