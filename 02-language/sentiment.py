@@ -66,13 +66,25 @@ client = TextAnalyticsClient(
 #     for entity in doc.entities:
 #         print(f"Text: {entity.text}  Category: {entity.category}  Subcategory: {entity.subcategory}  Confidence: {entity.confidence_score:.2f}")
 
+# documents = [
+#     "My name is John Smith, my SSN is 859-98-0987, and you can reach me at john.smith@email.com or call 425-555-0123."
+# ]
+
+# results = client.recognize_pii_entities(documents)
+
+# for doc in results:
+#     print("Redacted text:", doc.redacted_text)
+#     for entity in doc.entities:
+#         print(f"  Entity: {entity.text}  Category: {entity.category}  Confidence: {entity.confidence_score:.2f}")
+
+
 documents = [
-    "My name is John Smith, my SSN is 859-98-0987, and you can reach me at john.smith@email.com or call 425-555-0123."
+    "This is written in English.",
+    "Ceci est écrit en français.",
+    "यह हिंदी में लिखा गया है।",
 ]
 
-results = client.recognize_pii_entities(documents)
+results = client.detect_language(documents)
 
 for doc in results:
-    print("Redacted text:", doc.redacted_text)
-    for entity in doc.entities:
-        print(f"  Entity: {entity.text}  Category: {entity.category}  Confidence: {entity.confidence_score:.2f}")
+    print(f"Language: {doc.primary_language.name}  ISO code: {doc.primary_language.iso6391_name}  Confidence: {doc.primary_language.confidence_score:.2f}")
