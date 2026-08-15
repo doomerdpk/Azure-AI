@@ -27,21 +27,30 @@ client = TextAnalyticsClient(
 #     print("---")
 
 
+# documents = [
+#     "The food was great but the service was painfully slow.",
+# ]
+
+# results = client.analyze_sentiment(documents, show_opinion_mining=True)
+
+# for doc in results:
+#     for sentence in doc.sentences:
+#         print(f"Sentence: {sentence.text}")
+#         print(f"Overall sentence sentiment: {sentence.sentiment}")
+#         for opinion in sentence.mined_opinions:
+#             target = opinion.target
+#             print(f"  Target: '{target.text}' -> {target.sentiment} "
+#                   f"(positive: {target.confidence_scores.positive:.2f}, "
+#                   f"negative: {target.confidence_scores.negative:.2f})")
+#             for assessment in opinion.assessments:
+#                 print(f"    Assessment: '{assessment.text}' -> {assessment.sentiment}")
+#         print("---")
+
 documents = [
-    "The food was great but the service was painfully slow.",
+    "Microsoft was founded by Bill Gates and Paul Allen in Albuquerque, New Mexico. The company is now headquartered in Redmond, Washington."
 ]
 
-results = client.analyze_sentiment(documents, show_opinion_mining=True)
+results = client.extract_key_phrases(documents)
 
 for doc in results:
-    for sentence in doc.sentences:
-        print(f"Sentence: {sentence.text}")
-        print(f"Overall sentence sentiment: {sentence.sentiment}")
-        for opinion in sentence.mined_opinions:
-            target = opinion.target
-            print(f"  Target: '{target.text}' -> {target.sentiment} "
-                  f"(positive: {target.confidence_scores.positive:.2f}, "
-                  f"negative: {target.confidence_scores.negative:.2f})")
-            for assessment in opinion.assessments:
-                print(f"    Assessment: '{assessment.text}' -> {assessment.sentiment}")
-        print("---")
+    print("Key phrases:", doc.key_phrases)
