@@ -101,11 +101,19 @@ raw_text = """Azure AI Language is a cloud-based service that provides natural l
 
 document = [" ".join(raw_text.split())]
 
-poller = client.begin_extract_summary(document)
+# poller = client.begin_extract_summary(document)
+# results = poller.result()
+
+# for result in results:
+#     if result.kind == "ExtractiveSummarization":
+#         print("Extractive summary sentences:")
+#         for sentence in result.sentences:
+#             print(f"  - {sentence.text} (rank: {sentence.rank_score:.2f})")
+
+poller = client.begin_abstract_summary(document)
 results = poller.result()
 
 for result in results:
-    if result.kind == "ExtractiveSummarization":
-        print("Extractive summary sentences:")
-        for sentence in result.sentences:
-            print(f"  - {sentence.text} (rank: {sentence.rank_score:.2f})")
+    if result.kind == "AbstractiveSummarization":
+        for summary in result.summaries:
+            print("Abstractive summary:", summary.text)
