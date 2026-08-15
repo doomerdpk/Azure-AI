@@ -68,7 +68,28 @@ headers = {
 # print(status_data)
 
 
-model_eval_url = f"{endpoint}/language/authoring/analyze-text/projects/{project_name}/models/movie-genre-model/evaluation/summary-result?api-version={api_version}"
+# model_eval_url = f"{endpoint}/language/authoring/analyze-text/projects/{project_name}/models/movie-genre-model/evaluation/summary-result?api-version={api_version}"
 
-eval_response = requests.get(model_eval_url, headers=headers)
-print(json.dumps(eval_response.json(), indent=2))
+# eval_response = requests.get(model_eval_url, headers=headers)
+# print(json.dumps(eval_response.json(), indent=2))
+
+
+deploy_name = "staging"
+deploy_url = f"{endpoint}/language/authoring/analyze-text/projects/{project_name}/deployments/{deploy_name}?api-version={api_version}"
+
+deploy_body = {"trainedModelLabel": "movie-genre-model"}
+
+deploy_response = requests.put(deploy_url, headers=headers, json=deploy_body)
+print("Status code:", deploy_response.status_code)
+deploy_job_url = deploy_response.headers.get("operation-location")
+print("Deploy job URL:", deploy_job_url)
+
+while True:
+    status_response = requests.get(deploy_job_url, headers=headers)
+    status_data = status_response.json()
+    print("Status:", status_data["status"])
+    if status_data["status"] in ("succeeded", "failed"):
+        break
+    time.sleep(10)
+
+print(status_data)
