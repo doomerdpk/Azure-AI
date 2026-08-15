@@ -56,12 +56,23 @@ client = TextAnalyticsClient(
 #     print("Key phrases:", doc.key_phrases)
 
 
+# documents = [
+#     "Microsoft was founded by Bill Gates and Paul Allen in Albuquerque, New Mexico. The company is now headquartered in Redmond, Washington."
+# ]
+
+# results = client.recognize_entities(documents)
+
+# for doc in results:
+#     for entity in doc.entities:
+#         print(f"Text: {entity.text}  Category: {entity.category}  Subcategory: {entity.subcategory}  Confidence: {entity.confidence_score:.2f}")
+
 documents = [
-    "Microsoft was founded by Bill Gates and Paul Allen in Albuquerque, New Mexico. The company is now headquartered in Redmond, Washington."
+    "My name is John Smith, my SSN is 859-98-0987, and you can reach me at john.smith@email.com or call 425-555-0123."
 ]
 
-results = client.recognize_entities(documents)
+results = client.recognize_pii_entities(documents)
 
 for doc in results:
+    print("Redacted text:", doc.redacted_text)
     for entity in doc.entities:
-        print(f"Text: {entity.text}  Category: {entity.category}  Subcategory: {entity.subcategory}  Confidence: {entity.confidence_score:.2f}")
+        print(f"  Entity: {entity.text}  Category: {entity.category}  Confidence: {entity.confidence_score:.2f}")
