@@ -12,14 +12,29 @@ client = SearchClient(
 )
 
 # Basic keyword search
-print("=== Keyword Search: 'kubernetes containers' ===")
-results = client.search(search_text="kubernetes containers")
+# print("=== Keyword Search: 'kubernetes containers' ===")
+# results = client.search(search_text="kubernetes containers")
+# for r in results:
+#     print(f"  [{r['category']}] {r['title']}")
+#     print(f"  {r['content'][:100]}...")
+
+# Filter by category
+# print("\n=== Filtered Search: category = AI ===")
+# results = client.search(search_text="*", filter="category eq 'AI'")
+# for r in results:
+#     print(f"  {r['title']}")
+
+
+
+from azure.search.documents.models import QueryType
+
+print("\n=== Semantic Search: 'AI APIs without ML expertise' ===")
+results = client.search(
+    search_text="AI APIs without ML expertise",
+    query_type=QueryType.SEMANTIC,
+    semantic_configuration_name="default",
+    top=3
+)
 for r in results:
     print(f"  [{r['category']}] {r['title']}")
     print(f"  {r['content'][:100]}...")
-
-# Filter by category
-print("\n=== Filtered Search: category = AI ===")
-results = client.search(search_text="*", filter="category eq 'AI'")
-for r in results:
-    print(f"  {r['title']}")
