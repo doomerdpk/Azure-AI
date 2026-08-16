@@ -55,9 +55,35 @@ openai_client = AzureOpenAI(
 )
 
 
-from azure.search.documents.models import VectorizedQuery
+# from azure.search.documents.models import VectorizedQuery
 
-print("\n=== Vector Search: 'CI/CD automation' ===")
+# print("\n=== Vector Search: 'CI/CD automation' ===")
+
+# query_vector = openai_client.embeddings.create(
+#     input="CI/CD automation",
+#     model=os.environ["AZURE_OPENAI_EMBEDDING_DEPLOYMENT"]
+# ).data[0].embedding
+
+# results = search_client.search(
+#     search_text=None,
+#     vector_queries=[
+#         VectorizedQuery(
+#             vector=query_vector,
+#             k_nearest_neighbors=3,
+#             fields="content_vector"
+#         )
+#     ]
+# )
+
+# for r in results:
+#     print(f"  [{r['category']}] {r['title']}")
+#     print(f"  Score: {r['@search.score']:.4f}")
+#     print(f"  {r['content'][:100]}...")
+
+
+
+
+print("\n=== Hybrid Search: 'CI/CD automation' ===")
 
 query_vector = openai_client.embeddings.create(
     input="CI/CD automation",
@@ -65,14 +91,15 @@ query_vector = openai_client.embeddings.create(
 ).data[0].embedding
 
 results = search_client.search(
-    search_text=None,
+    search_text="CI/CD automation",
     vector_queries=[
         VectorizedQuery(
             vector=query_vector,
             k_nearest_neighbors=3,
             fields="content_vector"
         )
-    ]
+    ],
+    top=3
 )
 
 for r in results:
