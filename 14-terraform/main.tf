@@ -62,3 +62,26 @@ resource "azurerm_search_service" "ai_search" {
   semantic_search_sku = "free"
   sku                 = "free" 
 }
+
+
+# terraform import azapi_resource.foundry_project \
+#   /subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.CognitiveServices/accounts/dpk-ai-learning-project-resource/projects/dpk-ai-learning-project
+resource "azapi_resource" "foundry_project" {
+  type      = "Microsoft.CognitiveServices/accounts/projects@2026-05-15-preview"
+  name      = "dpk-ai-learning-project"
+  parent_id = "/subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.CognitiveServices/accounts/dpk-ai-learning-project-resource"
+  location  = "eastus"
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  body = {
+    properties = {
+      description = ""
+      displayName = "dpk-ai-learning-project"
+    }
+  }
+
+  response_export_values = ["*"]
+}
