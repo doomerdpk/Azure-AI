@@ -94,3 +94,30 @@ resource "azurerm_cognitive_account" "content_safety" {
   kind                = "ContentSafety"
   sku_name            = "F0"
 }   
+
+data "azurerm_log_analytics_workspace" "foundry_logs" {
+  name                = "dpk-ai-learning-project-resource-logs"
+  resource_group_name = azurerm_resource_group.ai_learning.name
+}
+
+resource "azurerm_monitor_diagnostic_setting" "aoai_diagnostics" {
+  name                       = "aoai-learning-01-diagnostics"
+  target_resource_id         = azurerm_cognitive_account.aoai_learning.id
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.foundry_logs.id
+
+  enabled_log {
+    category = "RequestResponse"
+  }
+
+  enabled_log {
+    category = "Trace"
+  }
+
+  enabled_log {
+    category = "Audit"
+  }
+
+  enabled_metric {
+    category = "AllMetrics"
+  }
+}
