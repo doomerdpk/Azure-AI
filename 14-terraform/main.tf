@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "ai_learning" {
 resource "azurerm_cognitive_account" "aoai_learning" {
   name                = "aoai-learning-01"
   resource_group_name = azurerm_resource_group.ai_learning.name
-  location             = "eastus"
+  location            = "eastus"
   kind                = "OpenAI"
   sku_name            = "S0"
 }
@@ -23,11 +23,11 @@ resource "azurerm_cognitive_deployment" "gpt_5_mini" {
   model {
     format  = "OpenAI"
     name    = "gpt-5-mini"
-    version = "2025-08-07" 
+    version = "2025-08-07"
   }
 
   sku {
-    name     = "GlobalStandard" 
+    name     = "GlobalStandard"
     capacity = 10
   }
 }
@@ -55,33 +55,42 @@ resource "azurerm_cognitive_deployment" "gpt_chat_latest_judge" {
 # terraform import azurerm_search_service.ai_search \
 #   /subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.Search/searchServices/aisearch-learning-01
 resource "azurerm_search_service" "ai_search" {
-  name                = "aisearch-learning-01"
-  resource_group_name = azurerm_resource_group.ai_learning.name
-  location            = "eastus"
+  name                        = "aisearch-learning-01"
+  resource_group_name         = azurerm_resource_group.ai_learning.name
+  location                    = "eastus"
   authentication_failure_mode = "http401WithBearerChallenge"
-  semantic_search_sku = "free"
-  sku                 = "free" 
+  semantic_search_sku         = "free"
+  sku                         = "free"
 }
 
 
 # terraform import azapi_resource.foundry_project \
 #   /subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.CognitiveServices/accounts/dpk-ai-learning-project-resource/projects/dpk-ai-learning-project
-resource "azapi_resource" "foundry_project" {
-  type      = "Microsoft.CognitiveServices/accounts/projects@2026-05-15-preview"
-  name      = "dpk-ai-learning-project"
-  parent_id = "/subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.CognitiveServices/accounts/dpk-ai-learning-project-resource"
-  location  = "eastus"
+# resource "azapi_resource" "foundry_project" {
+#   type      = "Microsoft.CognitiveServices/accounts/projects@2026-05-15-preview"
+#   name      = "dpk-ai-learning-project"
+#   parent_id = "/subscriptions/7939cc19-6638-45a9-b3ad-a87050a55491/resourceGroups/rg-ai-learning/providers/Microsoft.CognitiveServices/accounts/dpk-ai-learning-project-resource"
+#   location  = "eastus"
 
-  identity {
-    type = "SystemAssigned"
-  }
+#   identity {
+#     type = "SystemAssigned"
+#   }
 
-  body = {
-    properties = {
-      description = ""
-      displayName = "dpk-ai-learning-project"
-    }
-  }
+#   body = {
+#     properties = {
+#       description = ""
+#       displayName = "dpk-ai-learning-project"
+#     }
+#   }
 
-  response_export_values = ["*"]
-}
+#   response_export_values = ["*"]
+# }
+
+
+resource "azurerm_cognitive_account" "content_safety" {
+  name                = "cs-ai-learning-01"
+  resource_group_name = azurerm_resource_group.ai_learning.name
+  location            = "eastus"
+  kind                = "ContentSafety"
+  sku_name            = "F0"
+}   
