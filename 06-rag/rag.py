@@ -96,6 +96,12 @@ def rag(query):
         print(f"  - {doc['title']}")
     print("Generating answer...")
     answer = generate(query, docs)
+
+    output_flagged = check_content_safety(answer)
+    if output_flagged:
+        print(f"  Output blocked by Content Safety: {output_flagged}")
+        return "I generated a response, but it was flagged by content safety and can't be shown."
+
     print(f"\nAnswer: {answer}")
     return answer
 
