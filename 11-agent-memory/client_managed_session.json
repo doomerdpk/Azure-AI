@@ -1,0 +1,86 @@
+{
+  "type": "session",
+  "session_id": "853a4085-4973-424d-a726-c498ab1500e5",
+  "service_session_id": null,
+  "state": {
+    "chat_history": {
+      "messages": [
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Hello!",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Hello! How can I help you today?",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "MemoryAgent",
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "My name is Deepak",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Nice to meet you, Deepak! How can I help you today?",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "MemoryAgent",
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "What's my name?",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Your name is Deepak.",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "MemoryAgent",
+          "additional_properties": {},
+          "type": "message"
+        }
+      ]
+    }
+  }
+}

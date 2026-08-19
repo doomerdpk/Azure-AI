@@ -1,0 +1,86 @@
+{
+  "type": "session",
+  "session_id": "triage-specialist-shared",
+  "service_session_id": null,
+  "state": {
+    "in_memory": {
+      "messages": [
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "My name is Deepak",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Nice to meet you, Deepak. How can I help you today?",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "triage_agent",
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "What's my name?",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Your name is Deepak. How can I help you today?",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "specialist_agent",
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "user",
+          "contents": [
+            {
+              "type": "text",
+              "text": "What did I first tell the triage agent?",
+              "additional_properties": {}
+            }
+          ],
+          "additional_properties": {},
+          "type": "message"
+        },
+        {
+          "role": "assistant",
+          "contents": [
+            {
+              "type": "text",
+              "text": "You first told the triage agent your name: \"My name is Deepak.\"",
+              "additional_properties": {}
+            }
+          ],
+          "author_name": "specialist_agent",
+          "additional_properties": {},
+          "type": "message"
+        }
+      ]
+    }
+  }
+}
