@@ -93,7 +93,7 @@ resource "azurerm_cognitive_account" "content_safety" {
   location            = "eastus"
   kind                = "ContentSafety"
   sku_name            = "F0"
-}   
+}
 
 data "azurerm_log_analytics_workspace" "foundry_logs" {
   name                = "dpk-ai-learning-project-resource-logs"
@@ -119,5 +119,22 @@ resource "azurerm_monitor_diagnostic_setting" "aoai_diagnostics" {
 
   enabled_metric {
     category = "AllMetrics"
+  }
+}
+
+resource "azurerm_cognitive_deployment" "gpt_4_1_mini_ft" {
+  name                   = "gpt-4.1-mini-ft-sanity"
+  cognitive_account_id   = azurerm_cognitive_account.aoai_learning.id
+  version_upgrade_option = "NoAutoUpgrade"
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-4.1-mini-2025-04-14.ft-332b146d7c564873865fa49c352fba2e"
+    version = "1"
+  }
+
+  sku {
+    name     = "GlobalStandard"
+    capacity = 10
   }
 }
