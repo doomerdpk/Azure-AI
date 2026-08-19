@@ -8,3 +8,5 @@ venv/
 *Zone.Identifier
 *custom-text-classification-data/
 *.wav
+.terraform
+.terraform.lock.hcl
