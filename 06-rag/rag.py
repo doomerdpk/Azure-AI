@@ -72,6 +72,7 @@ def rag(query):
     print(f"\nAnswer: {answer}")
     return answer
 
-rag("How does Azure DevOps Pipelines support CI/CD?")
-rag("What search capabilities does Azure AI Search provide?")
-rag("What is the price of Azure Virtual Machines?")
+if __name__ == "__main__":
+    rag("How does Azure DevOps Pipelines support CI/CD?")
+    rag("What search capabilities does Azure AI Search provide?")
+    rag("What is the price of Azure Virtual Machines?")
